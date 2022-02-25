@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CleanArch.Application.Interfaces.Repositories;
 using CleanArch.Domain.Common;
+using CleanArch.Domain.Constants;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -26,8 +27,8 @@ namespace CleanArch.Application.Commands.Note.CreateNote
             var note = mapper.Map<Domain.Entities.Note>(request);
             var result = await noteRepository.AddAsync(note);
             return result == null 
-                ? new ErrorResponse("omas") 
-                : new SuccessResponse("olur");
+                ? new ErrorResponse(Messages.ERROR_OCCURRED) 
+                : new SuccessResponse(Messages.CREATED_NOTE_SUCCESSFULLY);
         }
     }
 }
