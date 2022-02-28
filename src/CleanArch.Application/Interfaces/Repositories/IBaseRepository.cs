@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CleanArch.Application.Interfaces.Repositories
 {
-    public interface IGenericRepository<T> where T:BaseEntity
+    public interface IBaseRepository<T> where T:BaseEntity
     {
         Task<List<T>> GetAsync();
         Task<List<T>> GetWhereAsync(Expression<Func<T, bool>> expression);

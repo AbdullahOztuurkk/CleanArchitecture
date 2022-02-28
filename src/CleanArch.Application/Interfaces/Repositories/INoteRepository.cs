@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CleanArch.Application.Interfaces.Repositories
 {
-    public interface INoteRepository:IGenericRepository<Note>
+    public interface INoteRepository:IBaseRepository<Note>
     {
         Task<List<Note>> GetAllByContent(string content);
         Task<List<Note>> GetAllByTag(string name);
