@@ -10,7 +10,7 @@ namespace CleanArch.Application.Interfaces.UnitOfWork
     public interface IUnitOfWork
     {
         Task<int> SaveAsync();
-        public INoteRepository noteRepository { get; set; }
-        public ITagRepository tagRepository { get; set; }
+        public INoteRepository NoteRepository { get; }
+        public ITagRepository TagRepository { get; }
     }
 }
