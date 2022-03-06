@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace CleanArch.Application.IoC
+namespace CleanArch.Application.Extensions
 {
     public static class ServiceRegistration
     {
