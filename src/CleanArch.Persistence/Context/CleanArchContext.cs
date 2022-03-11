@@ -1,5 +1,6 @@
 ﻿using CleanArch.Application.Interfaces.Context;
 using CleanArch.Domain.Entities;
+using CleanArch.Persistence.Context.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,14 +12,13 @@ namespace CleanArch.Persistence.Context
 {
     public class CleanArchContext : DbContext, IApplicationDbContext
     {
-        public CleanArchContext(DbContextOptions options):base(options)
-        {
+        public CleanArchContext(DbContextOptions options) : base(options) { }
+        public CleanArchContext() { }
 
-        }
-
-        public CleanArchContext()
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Needs for Entity Framework
+            modelBuilder.ApplyConfiguration<Note>(new NoteConfiguration());
+            modelBuilder.ApplyConfiguration<Tag>(new TagConfiguration());
         }
 
         public DbSet<Tag> Tags { get; set; }
