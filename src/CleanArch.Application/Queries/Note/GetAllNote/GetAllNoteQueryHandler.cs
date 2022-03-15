@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CleanArch.Application.Interfaces.Repositories;
-using CleanArch.Application.Queries.Note.GetNote;
+using CleanArch.Application.Queries.Note.GetAllNote;
 using MediatR;
 using System;
 using System.Collections.Generic;
