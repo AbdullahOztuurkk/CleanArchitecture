@@ -4,8 +4,19 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\ASUS\source\repos\CleanArchitecture\src\CleanArch.API\CleanArch.API.xml</DocumentationFile>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CleanArch.Application\CleanArch.Application.csproj" />
+    <ProjectReference Include="..\CleanArch.Persistence\CleanArch.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
