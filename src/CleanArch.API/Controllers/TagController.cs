@@ -23,7 +23,7 @@ namespace CleanArch.API.Controllers
         /// <summary>
         /// Get All Tags
         /// </summary>
-        /// <param name="request">Empty request body</param>
+        /// <param name="request">Empty request</param>
         /// <returns>Tag list that contains name and description</returns>
         [HttpGet("/")]
         public async Task<IActionResult> GetAll([FromQuery] GetAllTagQueryRequest request)

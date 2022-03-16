@@ -19,24 +19,44 @@ namespace CleanArch.API.Controllers
             this.mediator = mediator;
         }
 
+        /// <summary>
+        /// Get All Notes
+        /// </summary>
+        /// <param name="request">Empty request</param>
+        /// <returns>Note list that contains Title, content and is favorited</returns>
         [HttpGet("/")]
         public async Task<IActionResult> GetAll([FromQuery] GetAllNoteQueryRequest request)
         {
             return Ok(await mediator.Send(request));
         }
 
+        /// <summary>
+        /// Get Note
+        /// </summary>
+        /// <param name="request">Any Guid</param>
+        /// <returns>Note that contains title, content and is favorited</returns>
         [HttpGet("/:Id")]
         public async Task<IActionResult> Get([FromQuery] GetNoteQueryRequest request)
         {
             return Ok(await mediator.Send(request));
         }
 
+        /// <summary>
+        /// Create a Note
+        /// </summary>
+        /// <param name="request">Note Model</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateNoteCommandRequest request)
         {
             return Ok(await mediator.Send(request));
         }
 
+        /// <summary>
+        /// Delete the Note
+        /// </summary>
+        /// <param name="request">Any Guid</param>
+        /// <returns></returns>
         [HttpDelete("/:Id")]
         public async Task<IActionResult> Delete([FromQuery] DeleteNoteCommandRequest request)
         {
