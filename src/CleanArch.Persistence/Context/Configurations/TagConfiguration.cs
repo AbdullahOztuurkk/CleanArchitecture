@@ -16,9 +16,7 @@ namespace CleanArch.Persistence.Context.Configurations
             builder.ToTable("Tags");
 
             builder.HasKey(pred => pred.Id);
-            builder.Property(pred => pred.Id)
-                .UseIdentityColumn();
-
+            builder.Property(pred => pred.Id).ValueGeneratedOnAdd();
         }
     }
 }

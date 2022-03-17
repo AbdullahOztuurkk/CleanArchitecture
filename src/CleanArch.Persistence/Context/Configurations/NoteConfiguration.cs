@@ -16,11 +16,11 @@ namespace CleanArch.Persistence.Context.Configurations
             builder.ToTable("Notes");
 
             builder.HasKey(pred => pred.Id);
-            builder.Property(pred => pred.Id)
-                .UseIdentityColumn();
             builder.HasOne(pred => pred.Tag)
                 .WithMany(pred => pred.Notes)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            builder.Property(pred => pred.Id).ValueGeneratedOnAdd();
         }
     }
 }
