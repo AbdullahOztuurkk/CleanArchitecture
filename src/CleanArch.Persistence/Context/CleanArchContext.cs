@@ -12,7 +12,7 @@ namespace CleanArch.Persistence.Context
 {
     public class CleanArchContext : DbContext, IApplicationDbContext
     {
-        public CleanArchContext(DbContextOptions options) : base(options) { }
+        public CleanArchContext(DbContextOptions<CleanArchContext> options) : base(options) { }
         public CleanArchContext() { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
