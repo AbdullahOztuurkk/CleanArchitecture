@@ -8,13 +8,14 @@ namespace CleanArch.Domain.Constants
 {
     public static class Messages
     {
-        public static string CREATED_NOTE_SUCCESSFULLY = "Note has been added successfully";
-        public static string DELETED_NOTE_PERMANENTLY = "Note has been deleted permanently";
+        public const string CREATED_NOTE_SUCCESSFULLY = "Note has been added successfully";
+        public const string DELETED_NOTE_PERMANENTLY = "Note has been deleted permanently";
 
-        public static string CREATED_TAG_SUCCESSFULLY = "Tag has been added successfully";
-        public static string DELETED_TAG_PERMANENTLY = "Tag has been deleted permanently";
+        public const string CREATED_TAG_SUCCESSFULLY = "Tag has been added successfully";
+        public const string DELETED_TAG_PERMANENTLY = "Tag has been deleted permanently";
 
-        public static string ERROR_OCCURRED = "Error occurred. Please try again later!";
+        public const string ERROR_OCCURRED = "Error occurred. Please try again later!";
+        public const string VALIDATION_ERROR = "Some values are not valid. Please try again.";
 
     }
 }
