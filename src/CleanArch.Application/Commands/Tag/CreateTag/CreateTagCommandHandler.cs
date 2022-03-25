@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CleanArch.Application.Interfaces.UnitOfWork;
+using CleanArch.Application.Validations.Tag;
 using CleanArch.Domain.Common;
 using CleanArch.Domain.Constants;
 using MediatR;
@@ -10,16 +11,22 @@ namespace CleanArch.Application.Commands.Tag.CreateTag
 {
     public class CreateTagCommandHandler : IRequestHandler<CreateTagCommandRequest, AppResponse>
     {
-        private IUnitOfWork UoW;
-        private IMapper mapper;
-        public CreateTagCommandHandler(IMapper mapper, IUnitOfWork UoW)
+        private readonly IUnitOfWork UoW;
+        private readonly IMapper mapper;
+        private readonly CreateTagValidator validator;
+        public CreateTagCommandHandler(IMapper mapper, IUnitOfWork UoW, CreateTagValidator validator)
         {
             this.mapper = mapper;
             this.UoW = UoW;
+            this.validator = validator;
         }
 
         public async Task<AppResponse> Handle(CreateTagCommandRequest request, CancellationToken cancellationToken)
         {
+            var validationResult = validator.Validate(request);
+            if (validationResult.Errors.Count > 0)
+                return new ErrorResponse(Messages.VALIDATION_ERROR);
+
             var tag = mapper.Map<Domain.Entities.Tag>(request);
             var result = await UoW.TagRepository.AddAsync(tag);
             await UoW.SaveAsync();
