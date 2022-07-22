@@ -8,7 +8,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArch.Application.Commands.Tag.DeleteTag
+namespace CleanArch.Application.Features.Commands.DeleteEvent
 {
     public class DeleteTagCommandRequest : IRequest<AppResponse>
     {
