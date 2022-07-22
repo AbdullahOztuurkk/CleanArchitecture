@@ -1,10 +1,9 @@
-﻿using CleanArch.Application.Commands.Tag.CreateTag;
-using CleanArch.Application.Commands.Tag.DeleteTag;
-using CleanArch.Application.Queries.Tag.GetAllTag;
-using CleanArch.Application.Queries.Tag.GetTag;
+﻿using CleanArch.Application.Features.Commands.CreateEvent;
+using CleanArch.Application.Features.Commands.DeleteEvent;
+using CleanArch.Application.Features.Queries.GetAllEvent;
+using CleanArch.Application.Features.Queries.GetEvent;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CleanArch.API.Controllers
@@ -23,12 +22,11 @@ namespace CleanArch.API.Controllers
         /// <summary>
         /// Get All Tags
         /// </summary>
-        /// <param name="request">Empty request</param>
         /// <returns>Tag list that contains name and description</returns>
         [HttpGet("/")]
-        public async Task<IActionResult> GetAll([FromQuery] GetAllTagQueryRequest request)
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(await mediator.Send(request));
+            return Ok(await mediator.Send(new GetAllTagQueryRequest()));
         }
 
         /// <summary>

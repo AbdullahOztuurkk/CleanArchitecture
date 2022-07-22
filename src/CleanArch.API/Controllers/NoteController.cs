@@ -1,10 +1,9 @@
-﻿using CleanArch.Application.Commands.Note.CreateNote;
-using CleanArch.Application.Commands.Note.DeleteNote;
-using CleanArch.Application.Queries.Note.GetAllNote;
-using CleanArch.Application.Queries.Note.GetNote;
+﻿using CleanArch.Application.Features.Commands.CreateEvent;
+using CleanArch.Application.Features.Commands.DeleteEvent;
+using CleanArch.Application.Features.Queries.GetAllEvent;
+using CleanArch.Application.Features.Queries.GetEvent;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CleanArch.API.Controllers
@@ -22,12 +21,11 @@ namespace CleanArch.API.Controllers
         /// <summary>
         /// Get All Notes
         /// </summary>
-        /// <param name="request">Empty request</param>
         /// <returns>Note list that contains Title, content and is favorited</returns>
         [HttpGet("/")]
-        public async Task<IActionResult> GetAll([FromQuery] GetAllNoteQueryRequest request)
+        public async Task<IActionResult> GetAll()
         {
-            return Ok(await mediator.Send(request));
+            return Ok(await mediator.Send(new GetAllNoteQueryRequest()));
         }
 
         /// <summary>
