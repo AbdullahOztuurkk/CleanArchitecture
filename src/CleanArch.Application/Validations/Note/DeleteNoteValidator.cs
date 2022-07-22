@@ -1,4 +1,4 @@
-﻿using CleanArch.Application.Commands.Note.DeleteNote;
+﻿using CleanArch.Application.Features.Commands.DeleteEvent;
 using FluentValidation;
 
 namespace CleanArch.Application.Validations.Note

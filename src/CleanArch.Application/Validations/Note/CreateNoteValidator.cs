@@ -1,5 +1,4 @@
-﻿using CleanArch.Application.Commands.Note.CreateNote;
-using CleanArch.Domain.Constants;
+﻿using CleanArch.Application.Features.Commands.CreateEvent;
 using FluentValidation;
 
 namespace CleanArch.Application.Validations.Note

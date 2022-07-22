@@ -1,10 +1,5 @@
-﻿using CleanArch.Application.Commands.Tag.DeleteTag;
+﻿using CleanArch.Application.Features.Commands.DeleteEvent;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanArch.Application.Validations.Tag
 {
