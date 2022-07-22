@@ -4,11 +4,21 @@ using CleanArch.Domain.Common;
 using CleanArch.Domain.Constants;
 using FluentValidation;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArch.Application.Commands.Note.DeleteNote
+namespace CleanArch.Application.Features.Commands.DeleteEvent
 {
+    public class DeleteNoteCommandRequest : IRequest<AppResponse>
+    {
+        public Guid Id { get; set; }
+
+        public DeleteNoteCommandRequest(Guid id)
+        {
+            Id = id;
+        }
+    }
     public class DeleteNoteCommandHandler : IRequestHandler<DeleteNoteCommandRequest, AppResponse>
     {
         private readonly IUnitOfWork UoW;

@@ -1,15 +1,20 @@
 ﻿using AutoMapper;
 using CleanArch.Application.Interfaces.Repositories;
 using MediatR;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArch.Application.Queries.Tag.GetAllTag
+namespace CleanArch.Application.Features.Queries.GetAllEvent
 {
+    public class GetAllTagQueryRequest : IRequest<List<GetAllTagQueryResponse>> { }
+
+    public class GetAllTagQueryResponse
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
+
     public class GetAllTagQueryHandler : IRequestHandler<GetAllTagQueryRequest, List<GetAllTagQueryResponse>>
     {
         private readonly ITagRepository tagRepository;

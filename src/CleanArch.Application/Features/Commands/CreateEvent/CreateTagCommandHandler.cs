@@ -3,12 +3,24 @@ using CleanArch.Application.Interfaces.UnitOfWork;
 using CleanArch.Application.Validations.Tag;
 using CleanArch.Domain.Common;
 using CleanArch.Domain.Constants;
+using FluentValidation;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArch.Application.Commands.Tag.CreateTag
+namespace CleanArch.Application.Features.Commands.CreateEvent
 {
+    public class CreateTagCommandRequest : IRequest<AppResponse>
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
+
+        public CreateTagCommandRequest(string name, string description)
+        {
+            Name = name;
+            Description = description;
+        }
+    }
     public class CreateTagCommandHandler : IRequestHandler<CreateTagCommandRequest, AppResponse>
     {
         private readonly IUnitOfWork UoW;

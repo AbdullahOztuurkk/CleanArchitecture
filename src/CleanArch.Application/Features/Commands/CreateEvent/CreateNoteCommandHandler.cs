@@ -7,8 +7,19 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArch.Application.Commands.Note.CreateNote
+namespace CleanArch.Application.Features.Commands.CreateEvent
 {
+    public class CreateNoteCommandRequest : IRequest<AppResponse>
+    {
+        public string Title { get; set; }
+        public string Content { get; set; }
+
+        public CreateNoteCommandRequest(string title, string content)
+        {
+            Title = title;
+            Content = content;
+        }
+    }
     public class CreateNoteCommandHandler : IRequestHandler<CreateNoteCommandRequest, AppResponse>
     {
         private readonly IMapper mapper;

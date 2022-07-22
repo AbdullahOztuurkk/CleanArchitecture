@@ -1,16 +1,19 @@
 ﻿using AutoMapper;
 using CleanArch.Application.Interfaces.Repositories;
-using CleanArch.Application.Queries.Note.GetAllNote;
 using MediatR;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArch.Application.Queries.Note.GetAllNote
+namespace CleanArch.Application.Features.Queries.GetAllEvent
 {
+    public class GetAllNoteQueryRequest : IRequest<List<GetAllNoteQueryResponse>> { }
+    public class GetAllNoteQueryResponse
+    {
+        public string Title { get; set; }
+        public string Content { get; set; }
+    }
+
     public class GetAllNoteQueryHandler : IRequestHandler<GetAllNoteQueryRequest, List<GetAllNoteQueryResponse>>
     {
         private readonly INoteRepository noteRepository;

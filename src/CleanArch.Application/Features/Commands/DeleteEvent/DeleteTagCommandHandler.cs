@@ -4,11 +4,21 @@ using CleanArch.Application.Validations.Tag;
 using CleanArch.Domain.Common;
 using CleanArch.Domain.Constants;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace CleanArch.Application.Commands.Tag.DeleteTag
 {
+    public class DeleteTagCommandRequest : IRequest<AppResponse>
+    {
+        public Guid Id { get; set; }
+
+        public DeleteTagCommandRequest(Guid id)
+        {
+            Id = id;
+        }
+    }
     public class DeleteTagCommandHandler : IRequestHandler<DeleteTagCommandRequest, AppResponse>
     {
         private readonly IUnitOfWork UoW;
