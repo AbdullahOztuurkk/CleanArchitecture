@@ -49,5 +49,14 @@ namespace CleanArch.Persistence.Repositories
             await UoW.SaveAsync();
             return model;
         }
+
+        public Task<T> Update(T model)
+        {
+            using (context)
+            {
+                context.Entry<T>(model).State = EntityState.Modified;
+            }
+            return Task.FromResult(model);
+        }
     }
 }
