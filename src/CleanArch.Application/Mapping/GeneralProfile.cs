@@ -1,12 +1,9 @@
 ﻿using AutoMapper;
-using CleanArch.Application.Commands.Note.CreateNote;
-using CleanArch.Application.Commands.Note.DeleteNote;
-using CleanArch.Application.Commands.Tag.CreateTag;
-using CleanArch.Application.Commands.Tag.DeleteTag;
-using CleanArch.Application.Queries.Note.GetAllNote;
-using CleanArch.Application.Queries.Note.GetNote;
-using CleanArch.Application.Queries.Tag.GetAllTag;
-using CleanArch.Application.Queries.Tag.GetTag;
+using CleanArch.Application.Features.Commands.CreateEvent;
+using CleanArch.Application.Features.Commands.DeleteEvent;
+using CleanArch.Application.Features.Commands.UpdateEvent;
+using CleanArch.Application.Features.Queries.GetAllEvent;
+using CleanArch.Application.Features.Queries.GetEvent;
 using CleanArch.Domain.Entities;
 
 namespace CleanArch.Application.Mapping
@@ -19,6 +16,10 @@ namespace CleanArch.Application.Mapping
             CreateMap<Note, CreateNoteCommandRequest>()
                 .ReverseMap();
             CreateMap<Note, DeleteNoteCommandRequest>()
+                .ReverseMap();
+            CreateMap<Note, UpdateNoteCommandRequest>()
+                .ReverseMap();
+            CreateMap<Tag, UpdateTagCommandRequest>()
                 .ReverseMap();
             CreateMap<Tag, CreateTagCommandRequest>()
                 .ReverseMap();
