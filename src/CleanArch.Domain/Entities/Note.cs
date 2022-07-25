@@ -13,7 +13,6 @@ namespace CleanArch.Domain.Entities
         public bool IsStarred { get; set; }
 
         //Relationship
-        public int TagId { get; set; }
         public Tag Tag { get; set; }
 
         public Note(string title, string content, bool isStarred)
