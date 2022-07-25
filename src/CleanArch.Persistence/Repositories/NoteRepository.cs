@@ -14,7 +14,7 @@ namespace CleanArch.Persistence.Repositories
     public class NoteRepository:BaseRepository<Note>,INoteRepository
     {
         private readonly CleanArchContext context;
-        public NoteRepository(CleanArchContext context,IUnitOfWork UoW):base(context,UoW)
+        public NoteRepository(CleanArchContext context):base(context)
         {
             this.context = context;
         }

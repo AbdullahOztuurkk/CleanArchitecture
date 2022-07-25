@@ -15,18 +15,16 @@ namespace CleanArch.Persistence.Repositories
     public class BaseRepository<T>:IBaseRepository<T> where T: BaseEntity
     {
         private readonly CleanArchContext context;
-        private readonly IUnitOfWork UoW;
-        public BaseRepository(CleanArchContext context, IUnitOfWork uoW)
+        public BaseRepository(CleanArchContext context)
         {
             this.context = context;
-            UoW = uoW;
         }
         public DbSet<T> Table { get => context.Set<T>(); }
 
         public async Task<T> AddAsync(T model)
         {
             await Table.AddAsync(model);
-            await UoW.SaveAsync();
+            context.SaveChanges();
             return model;
         }
         public async Task<List<T>> GetAsync()
@@ -46,7 +44,7 @@ namespace CleanArch.Persistence.Repositories
         {
             var model = Table.Where(pre => pre.Id == Id).FirstOrDefault();
             Table.Remove(model);
-            await UoW.SaveAsync();
+            context.SaveChanges();
             return model;
         }
 
@@ -55,6 +53,7 @@ namespace CleanArch.Persistence.Repositories
             using (context)
             {
                 context.Entry<T>(model).State = EntityState.Modified;
+                context.SaveChanges();
             }
             return Task.FromResult(model);
         }

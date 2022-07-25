@@ -12,10 +12,7 @@ namespace CleanArch.Persistence.Repositories
 {
     public class TagRepository : BaseRepository<Tag>, ITagRepository
     {
-        public TagRepository(CleanArchContext context, IUnitOfWork UoW) : base(context, UoW) 
-        {
-        
-        }
+        public TagRepository(CleanArchContext context) : base(context) { }
 
         public Task<List<Tag>> GetAllByDescription(string description)
         {
