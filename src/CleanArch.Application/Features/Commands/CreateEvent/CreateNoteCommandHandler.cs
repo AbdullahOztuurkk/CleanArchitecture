@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CleanArch.Application.Interfaces.Repositories;
 using CleanArch.Application.Interfaces.UnitOfWork;
 using CleanArch.Application.Validations.Note;
 using CleanArch.Domain.Common;
@@ -23,12 +24,12 @@ namespace CleanArch.Application.Features.Commands.CreateEvent
     public class CreateNoteCommandHandler : IRequestHandler<CreateNoteCommandRequest, AppResponse>
     {
         private readonly IMapper mapper;
-        private readonly IUnitOfWork UoW;
+        private readonly INoteRepository noteRepository;
         private readonly CreateNoteValidator validator;
-        public CreateNoteCommandHandler(IMapper mapper, IUnitOfWork uoW, CreateNoteValidator validator)
+        public CreateNoteCommandHandler(IMapper mapper, INoteRepository noteRepository, CreateNoteValidator validator)
         {
             this.mapper = mapper;
-            UoW = uoW;
+            this.noteRepository = noteRepository;
             this.validator = validator;
         }
 
@@ -39,8 +40,7 @@ namespace CleanArch.Application.Features.Commands.CreateEvent
                 return new ErrorResponse(Messages.VALIDATION_ERROR);
 
             var note = mapper.Map<Domain.Entities.Note>(request);
-            var result = await UoW.NoteRepository.AddAsync(note);
-            await UoW.SaveAsync();
+            var result = await noteRepository.AddAsync(note);
             return result == null
                 ? new ErrorResponse(Messages.ERROR_OCCURRED)
                 : new SuccessResponse(Messages.CREATED_NOTE_SUCCESSFULLY);

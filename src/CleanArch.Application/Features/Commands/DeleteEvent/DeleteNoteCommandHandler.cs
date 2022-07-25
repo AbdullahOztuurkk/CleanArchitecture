@@ -1,8 +1,7 @@
-﻿using CleanArch.Application.Interfaces.UnitOfWork;
+﻿using CleanArch.Application.Interfaces.Repositories;
 using CleanArch.Application.Validations.Note;
 using CleanArch.Domain.Common;
 using CleanArch.Domain.Constants;
-using FluentValidation;
 using MediatR;
 using System;
 using System.Threading;
@@ -21,11 +20,11 @@ namespace CleanArch.Application.Features.Commands.DeleteEvent
     }
     public class DeleteNoteCommandHandler : IRequestHandler<DeleteNoteCommandRequest, AppResponse>
     {
-        private readonly IUnitOfWork UoW;
+        private readonly INoteRepository noteRepository;
         private readonly DeleteNoteValidator validator;
-        public DeleteNoteCommandHandler(IUnitOfWork uoW, DeleteNoteValidator validator)
+        public DeleteNoteCommandHandler(INoteRepository noteRepository, DeleteNoteValidator validator)
         {
-            UoW = uoW;
+            this.noteRepository = noteRepository;
             this.validator = validator;
         }
         public async Task<AppResponse> Handle(DeleteNoteCommandRequest request, CancellationToken cancellationToken)
@@ -34,8 +33,7 @@ namespace CleanArch.Application.Features.Commands.DeleteEvent
             if (validationResult.Errors.Count > 0)
                 return new ErrorResponse(Messages.VALIDATION_ERROR);
 
-            var result = await UoW.NoteRepository.RemoveAsync(request.Id);
-            await UoW.SaveAsync();
+            var result = await noteRepository.RemoveAsync(request.Id);
             return result == null
                 ? new ErrorResponse(Messages.ERROR_OCCURRED)
                 : new SuccessResponse(Messages.DELETED_NOTE_PERMANENTLY);

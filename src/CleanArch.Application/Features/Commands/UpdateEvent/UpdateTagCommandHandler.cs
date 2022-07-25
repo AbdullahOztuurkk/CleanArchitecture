@@ -1,47 +1,50 @@
 ﻿using AutoMapper;
 using CleanArch.Application.Interfaces.Repositories;
 using CleanArch.Application.Interfaces.UnitOfWork;
-using CleanArch.Application.Validations.Tag;
 using CleanArch.Domain.Common;
 using CleanArch.Domain.Constants;
-using FluentValidation;
 using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CleanArch.Application.Features.Commands.CreateEvent
+namespace CleanArch.Application.Features.Commands.UpdateEvent
 {
-    public class CreateTagCommandRequest : IRequest<AppResponse>
+    public class UpdateTagCommandRequest : IRequest<AppResponse>
     {
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public CreateTagCommandRequest(string name, string description)
+        public UpdateTagCommandRequest(string name, string description)
         {
             Name = name;
             Description = description;
         }
     }
-    public class CreateTagCommandHandler : IRequestHandler<CreateTagCommandRequest, AppResponse>
+    public class UpdateTagCommandHandler : IRequestHandler<UpdateTagCommandRequest, AppResponse>
     {
-        private readonly IMapper mapper;
         private readonly ITagRepository tagRepository;
-        private readonly CreateTagValidator validator;
-        public CreateTagCommandHandler(IMapper mapper, ITagRepository tagRepository, CreateTagValidator validator)
+        private readonly IMapper mapper;
+        //private readonly CreateTagValidator validator;
+        public UpdateTagCommandHandler(IMapper mapper, ITagRepository tagRepository/*, CreateTagValidator validator*/)
         {
             this.mapper = mapper;
             this.tagRepository = tagRepository;
-            this.validator = validator;
+            //this.validator = validator;
         }
 
-        public async Task<AppResponse> Handle(CreateTagCommandRequest request, CancellationToken cancellationToken)
+        public async Task<AppResponse> Handle(UpdateTagCommandRequest request, CancellationToken cancellationToken)
         {
+            /*
             var validationResult = validator.Validate(request);
             if (validationResult.Errors.Count > 0)
                 return new ErrorResponse(Messages.VALIDATION_ERROR);
-
+            */
             var tag = mapper.Map<Domain.Entities.Tag>(request);
-            var result = await tagRepository.AddAsync(tag);
+            var result = await tagRepository.Update(tag);
             return result == null
                 ? new ErrorResponse(Messages.ERROR_OCCURRED)
                 : new SuccessResponse(Messages.CREATED_TAG_SUCCESSFULLY);

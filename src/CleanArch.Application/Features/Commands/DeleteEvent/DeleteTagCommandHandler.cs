@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CleanArch.Application.Interfaces.Repositories;
 using CleanArch.Application.Interfaces.UnitOfWork;
 using CleanArch.Application.Validations.Tag;
 using CleanArch.Domain.Common;
@@ -21,11 +22,11 @@ namespace CleanArch.Application.Features.Commands.DeleteEvent
     }
     public class DeleteTagCommandHandler : IRequestHandler<DeleteTagCommandRequest, AppResponse>
     {
-        private readonly IUnitOfWork UoW;
+        private readonly ITagRepository tagRepository;
         private readonly DeleteTagValidator validator;
-        public DeleteTagCommandHandler(IUnitOfWork UoW, DeleteTagValidator validator)
+        public DeleteTagCommandHandler(ITagRepository tagRepository, DeleteTagValidator validator)
         {
-            this.UoW = UoW;
+            this.tagRepository = tagRepository;
             this.validator = validator;
         }
 
@@ -35,8 +36,7 @@ namespace CleanArch.Application.Features.Commands.DeleteEvent
             if (validationResult.Errors.Count > 0)
                 return new ErrorResponse(Messages.VALIDATION_ERROR);
 
-            var result = await UoW.TagRepository.RemoveAsync(request.Id);
-            await UoW.SaveAsync();
+            var result = await tagRepository.RemoveAsync(request.Id);
             return result == null
                 ? new ErrorResponse(Messages.ERROR_OCCURRED)
                 : new SuccessResponse(Messages.DELETED_NOTE_PERMANENTLY);
