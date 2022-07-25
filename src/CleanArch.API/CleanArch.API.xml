@@ -4,56 +4,54 @@
         <name>CleanArch.API</name>
     </assembly>
     <members>
-        <member name="M:CleanArch.API.Controllers.NoteController.GetAll(CleanArch.Application.Queries.Note.GetAllNote.GetAllNoteQueryRequest)">
+        <member name="M:CleanArch.API.Controllers.NoteController.GetAll">
             <summary>
             Get All Notes
             </summary>
-            <param name="request">Empty request</param>
             <returns>Note list that contains Title, content and is favorited</returns>
         </member>
-        <member name="M:CleanArch.API.Controllers.NoteController.Get(CleanArch.Application.Queries.Note.GetNote.GetNoteQueryRequest)">
+        <member name="M:CleanArch.API.Controllers.NoteController.Get(CleanArch.Application.Features.Queries.GetEvent.GetNoteQueryRequest)">
             <summary>
             Get Note
             </summary>
             <param name="request">Any Guid</param>
             <returns>Note that contains title, content and is favorited</returns>
         </member>
-        <member name="M:CleanArch.API.Controllers.NoteController.Create(CleanArch.Application.Commands.Note.CreateNote.CreateNoteCommandRequest)">
+        <member name="M:CleanArch.API.Controllers.NoteController.Create(CleanArch.Application.Features.Commands.CreateEvent.CreateNoteCommandRequest)">
             <summary>
             Create a Note
             </summary>
             <param name="request">Note Model</param>
             <returns></returns>
         </member>
-        <member name="M:CleanArch.API.Controllers.NoteController.Delete(CleanArch.Application.Commands.Note.DeleteNote.DeleteNoteCommandRequest)">
+        <member name="M:CleanArch.API.Controllers.NoteController.Delete(CleanArch.Application.Features.Commands.DeleteEvent.DeleteNoteCommandRequest)">
             <summary>
             Delete the Note
             </summary>
             <param name="request">Any Guid</param>
             <returns></returns>
         </member>
-        <member name="M:CleanArch.API.Controllers.TagController.GetAll(CleanArch.Application.Queries.Tag.GetAllTag.GetAllTagQueryRequest)">
+        <member name="M:CleanArch.API.Controllers.TagController.GetAll">
             <summary>
             Get All Tags
             </summary>
-            <param name="request">Empty request</param>
             <returns>Tag list that contains name and description</returns>
         </member>
-        <member name="M:CleanArch.API.Controllers.TagController.Get(CleanArch.Application.Queries.Tag.GetTag.GetTagQueryRequest)">
+        <member name="M:CleanArch.API.Controllers.TagController.Get(CleanArch.Application.Features.Queries.GetEvent.GetTagQueryRequest)">
             <summary>
             Get specified Tag
             </summary>
             <param name="request">Any Guid</param>
             <returns>Tag that contains name and description</returns>
         </member>
-        <member name="M:CleanArch.API.Controllers.TagController.Create(CleanArch.Application.Commands.Tag.CreateTag.CreateTagCommandRequest)">
+        <member name="M:CleanArch.API.Controllers.TagController.Create(CleanArch.Application.Features.Commands.CreateEvent.CreateTagCommandRequest)">
             <summary>
             Create a Tag
             </summary>
             <param name="request">Tag Model</param>
             <returns></returns>
         </member>
-        <member name="M:CleanArch.API.Controllers.TagController.Delete(CleanArch.Application.Commands.Tag.DeleteTag.DeleteTagCommandRequest)">
+        <member name="M:CleanArch.API.Controllers.TagController.Delete(CleanArch.Application.Features.Commands.DeleteEvent.DeleteTagCommandRequest)">
             <summary>
             Delete the tag
             </summary>

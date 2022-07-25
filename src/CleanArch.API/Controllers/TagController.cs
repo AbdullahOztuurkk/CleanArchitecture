@@ -3,12 +3,13 @@ using CleanArch.Application.Features.Commands.DeleteEvent;
 using CleanArch.Application.Features.Queries.GetAllEvent;
 using CleanArch.Application.Features.Queries.GetEvent;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace CleanArch.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/tags/")]
     [ApiController]
     public class TagController : ControllerBase
     {
@@ -23,7 +24,8 @@ namespace CleanArch.API.Controllers
         /// Get All Tags
         /// </summary>
         /// <returns>Tag list that contains name and description</returns>
-        [HttpGet("/")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet("get-all")]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await mediator.Send(new GetAllTagQueryRequest()));
@@ -34,7 +36,8 @@ namespace CleanArch.API.Controllers
         /// </summary>
         /// <param name="request">Any Guid</param>
         /// <returns>Tag that contains name and description</returns>
-        [HttpGet("/:Id")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet(":Id")]
         public async Task<IActionResult> Get([FromQuery] GetTagQueryRequest request)
         {
             return Ok(await mediator.Send(request));
@@ -45,10 +48,15 @@ namespace CleanArch.API.Controllers
         /// </summary>
         /// <param name="request">Tag Model</param>
         /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateTagCommandRequest request)
         {
-            return (Ok(await mediator.Send(request)));
+            var result = await mediator.Send(request);
+            if (result.IsSucceed == false)
+                return BadRequest(result.Message);
+            return Ok(result);
         }
 
         /// <summary>
@@ -56,11 +64,15 @@ namespace CleanArch.API.Controllers
         /// </summary>
         /// <param name="request">Any Guid</param>
         /// <returns></returns>
-        [HttpDelete("/:Id")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpDelete(":Id")]
         public async Task<IActionResult> Delete([FromQuery] DeleteTagCommandRequest request)
         {
-            await mediator.Send(request);
-            return NoContent();
+            var result = await mediator.Send(request);
+            if (result.IsSucceed == false)
+                return NoContent();
+            return Ok(result);
         }
     }
 }

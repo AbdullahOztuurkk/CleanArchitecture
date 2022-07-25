@@ -3,13 +3,14 @@ using CleanArch.Application.Features.Commands.DeleteEvent;
 using CleanArch.Application.Features.Queries.GetAllEvent;
 using CleanArch.Application.Features.Queries.GetEvent;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace CleanArch.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/notes")]
     public class NoteController : ControllerBase
     {
         public readonly IMediator mediator;
@@ -22,7 +23,7 @@ namespace CleanArch.API.Controllers
         /// Get All Notes
         /// </summary>
         /// <returns>Note list that contains Title, content and is favorited</returns>
-        [HttpGet("/")]
+        [HttpGet("get-all")]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await mediator.Send(new GetAllNoteQueryRequest()));
@@ -33,7 +34,8 @@ namespace CleanArch.API.Controllers
         /// </summary>
         /// <param name="request">Any Guid</param>
         /// <returns>Note that contains title, content and is favorited</returns>
-        [HttpGet("/:Id")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [HttpGet(":Id")]
         public async Task<IActionResult> Get([FromQuery] GetNoteQueryRequest request)
         {
             return Ok(await mediator.Send(request));
@@ -44,10 +46,15 @@ namespace CleanArch.API.Controllers
         /// </summary>
         /// <param name="request">Note Model</param>
         /// <returns></returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateNoteCommandRequest request)
         {
-            return Ok(await mediator.Send(request));
+            var result = await mediator.Send(request);
+            if (result.IsSucceed == false)
+                return BadRequest(result.Message);
+            return Ok(result);
         }
 
         /// <summary>
@@ -55,11 +62,15 @@ namespace CleanArch.API.Controllers
         /// </summary>
         /// <param name="request">Any Guid</param>
         /// <returns></returns>
-        [HttpDelete("/:Id")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [HttpDelete("{Id}")]
         public async Task<IActionResult> Delete([FromQuery] DeleteNoteCommandRequest request)
         {
-            await mediator.Send(request);
-            return NoContent();
+            var result = await mediator.Send(request);
+            if (result.IsSucceed == false)
+                return NoContent();
+            return Ok(result);
         }
     }
 }

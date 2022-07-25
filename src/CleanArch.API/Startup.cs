@@ -2,12 +2,10 @@ using CleanArch.Application.Extensions;
 using CleanArch.Persistence.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
+using NSwag;
 
 namespace CleanArch.API
 {
@@ -25,20 +23,19 @@ namespace CleanArch.API
         {
 
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { 
-                    Title = "Clean Architecture",
-                    Version = "v1" ,
-                    Contact = new OpenApiContact
+            services.AddSwaggerDocument(config =>
+                config.PostProcess = ( settings => {
+                    settings.Info.Title = "Clean Architecture";
+                    settings.Info.Description = "Clean Architecture API Documentation";
+                    settings.Info.Contact = new OpenApiContact
                     {
                         Email = "oabdullahozturk@yandex.com",
                         Name = "Abdullah Öztürk",
-                        Url = new System.Uri("https://www.abdullahozturk.live")
-                    },
-                    Description = "Clean Architecture API Guide",
-                });
-            });
+                        Url = "https://abdullahozturk.live",
+                    };
+                    settings.Info.Version = "v1";
+                }
+            ));
 
             services.AddApplicationServices();
             services.AddPersistenceServices(Configuration);
@@ -50,9 +47,11 @@ namespace CleanArch.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CleanArch.API v1"));
             }
+
+            app.UseOpenApi();
+
+            app.UseSwaggerUi3();
 
             app.UseRouting();
 
