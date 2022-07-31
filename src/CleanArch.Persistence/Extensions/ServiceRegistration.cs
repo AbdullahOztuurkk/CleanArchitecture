@@ -15,7 +15,6 @@ namespace CleanArch.Persistence.Extensions
             services.AddDbContext<CleanArchContext>(options => options.UseSqlServer(configuration.GetConnectionString("CleanArchContext")));
             services.AddScoped<INoteRepository, NoteRepository>();
             services.AddScoped<ITagRepository, TagRepository>();
-            services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
         }
     }
 }
