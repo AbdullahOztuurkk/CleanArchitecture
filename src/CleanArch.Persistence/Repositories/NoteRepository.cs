@@ -1,17 +1,13 @@
 ﻿using CleanArch.Application.Interfaces.Repositories;
-using CleanArch.Application.Interfaces.UnitOfWork;
 using CleanArch.Domain.Entities;
 using CleanArch.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanArch.Persistence.Repositories
 {
-    public class NoteRepository:BaseRepository<Note>,INoteRepository
+    public class NoteRepository:BaseRepository<CleanArchContext,Note>,INoteRepository
     {
         private readonly CleanArchContext context;
         public NoteRepository(CleanArchContext context):base(context)
@@ -19,16 +15,17 @@ namespace CleanArch.Persistence.Repositories
             this.context = context;
         }
 
-        public Task<List<Note>> GetAllByContent(string content)
+        public List<Note> GetAllByContent(string content)
         {
-            var result = Table.Where(predicate => predicate.Content.Contains(content)).ToList();
-            return Task.FromResult(result);
+            return base.GetAll(note => note.Content.Contains(content));
         }
 
-        public Task<List<Note>> GetAllByTag(string name)
+        public List<Note> GetAllByTag(string name)
         {
-            var result = context.Notes.Include(p => p.Tag).Where(predicate => predicate.Tag.Name.Contains(name)).ToList();
-            return Task.FromResult(result);
+            using (CleanArchContext context = new CleanArchContext())
+            {
+                return context.Notes.Include(p => p.Tag).Where(predicate => predicate.Tag.Name.Contains(name)).ToList();
+            }   
         }
     }
 }

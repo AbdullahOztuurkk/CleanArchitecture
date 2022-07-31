@@ -1,15 +1,11 @@
 ﻿using CleanArch.Domain.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanArch.Application.Interfaces.Repositories
 {
     public interface INoteRepository:IBaseRepository<Note>
     {
-        Task<List<Note>> GetAllByContent(string content);
-        Task<List<Note>> GetAllByTag(string name);
+        List<Note> GetAllByContent(string content);
+        List<Note> GetAllByTag(string name);
     }
 }
