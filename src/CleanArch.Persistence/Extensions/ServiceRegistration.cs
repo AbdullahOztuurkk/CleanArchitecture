@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using CleanArch.Persistence.Repositories;
 using CleanArch.Application.Interfaces.Repositories;
-using CleanArch.Application.Interfaces.UnitOfWork;
 
 namespace CleanArch.Persistence.Extensions
 {
