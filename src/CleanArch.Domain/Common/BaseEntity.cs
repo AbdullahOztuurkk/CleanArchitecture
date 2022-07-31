@@ -8,6 +8,6 @@ namespace CleanArch.Domain
 {
     public class BaseEntity
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
     }
 }

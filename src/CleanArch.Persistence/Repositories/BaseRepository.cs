@@ -22,11 +22,12 @@ namespace CleanArch.Persistence.Repositories
             }
         }
 
-        public void Delete(TEntity entity)
+        public void Delete(int Id)
         {
             using (TContext context = new TContext())
             {
-                context.Entry<TEntity>(entity).State = EntityState.Deleted;
+                var entity = context.Set<TEntity>().FirstOrDefault(p => p.Id == Id);
+                context.Remove(entity);
                 context.SaveChanges();
             }
         }

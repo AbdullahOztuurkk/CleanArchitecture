@@ -13,7 +13,7 @@ namespace CleanArch.Application.Interfaces.Repositories
         T Get(int id);
         void Add(T entity);
         void Update(T entity);
-        void Delete(T entity);
+        void Delete(int Id);
         List<T> GetAll(Expression<Func<T, bool>> filter = null);
     }
 }
