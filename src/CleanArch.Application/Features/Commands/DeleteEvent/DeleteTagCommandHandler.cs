@@ -13,9 +13,9 @@ namespace CleanArch.Application.Features.Commands.DeleteEvent
 {
     public class DeleteTagCommandRequest : IRequest<AppResponse>
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
-        public DeleteTagCommandRequest(Guid id)
+        public DeleteTagCommandRequest(int id)
         {
             Id = id;
         }
@@ -23,23 +23,21 @@ namespace CleanArch.Application.Features.Commands.DeleteEvent
     public class DeleteTagCommandHandler : IRequestHandler<DeleteTagCommandRequest, AppResponse>
     {
         private readonly ITagRepository tagRepository;
-        private readonly DeleteTagValidator validator;
-        public DeleteTagCommandHandler(ITagRepository tagRepository, DeleteTagValidator validator)
+        //private readonly DeleteTagValidator validator;
+        public DeleteTagCommandHandler(ITagRepository tagRepository/*, DeleteTagValidator validator*/)
         {
             this.tagRepository = tagRepository;
-            this.validator = validator;
+            //this.validator = validator;
         }
 
         public async Task<AppResponse> Handle(DeleteTagCommandRequest request, CancellationToken cancellationToken)
         {
-            var validationResult = validator.Validate(request);
-            if (validationResult.Errors.Count > 0)
-                return new ErrorResponse(Messages.VALIDATION_ERROR);
+            //var validationResult = validator.Validate(request);
+            //if (validationResult.Errors.Count > 0)
+            //    return new ErrorResponse(Messages.VALIDATION_ERROR);
 
-            var result = await tagRepository.RemoveAsync(request.Id);
-            return result == null
-                ? new ErrorResponse(Messages.ERROR_OCCURRED)
-                : new SuccessResponse(Messages.DELETED_NOTE_PERMANENTLY);
+            tagRepository.Delete(request.Id);
+            return new SuccessResponse(Messages.DELETED_NOTE_PERMANENTLY);
         }
     }
 }

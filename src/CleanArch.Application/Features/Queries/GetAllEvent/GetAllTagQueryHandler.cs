@@ -26,7 +26,7 @@ namespace CleanArch.Application.Features.Queries.GetAllEvent
         }
         public async Task<List<GetAllTagQueryResponse>> Handle(GetAllTagQueryRequest request, CancellationToken cancellationToken)
         {
-            var result = await tagRepository.GetAsync();
+            var result = tagRepository.GetAll();
             return mapper.Map<List<GetAllTagQueryResponse>>(result);
         }
     }

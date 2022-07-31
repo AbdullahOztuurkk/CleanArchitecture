@@ -44,10 +44,8 @@ namespace CleanArch.Application.Features.Commands.UpdateEvent
                 return new ErrorResponse(Messages.VALIDATION_ERROR);
             */
             var tag = mapper.Map<Domain.Entities.Tag>(request);
-            var result = await tagRepository.Update(tag);
-            return result == null
-                ? new ErrorResponse(Messages.ERROR_OCCURRED)
-                : new SuccessResponse(Messages.CREATED_TAG_SUCCESSFULLY);
+            tagRepository.Update(tag);
+            return new SuccessResponse(Messages.CREATED_TAG_SUCCESSFULLY);
         }
     }
 }

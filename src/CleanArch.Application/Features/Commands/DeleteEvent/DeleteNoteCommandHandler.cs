@@ -11,9 +11,9 @@ namespace CleanArch.Application.Features.Commands.DeleteEvent
 {
     public class DeleteNoteCommandRequest : IRequest<AppResponse>
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
-        public DeleteNoteCommandRequest(Guid id)
+        public DeleteNoteCommandRequest(int id)
         {
             Id = id;
         }
@@ -21,22 +21,20 @@ namespace CleanArch.Application.Features.Commands.DeleteEvent
     public class DeleteNoteCommandHandler : IRequestHandler<DeleteNoteCommandRequest, AppResponse>
     {
         private readonly INoteRepository noteRepository;
-        private readonly DeleteNoteValidator validator;
-        public DeleteNoteCommandHandler(INoteRepository noteRepository, DeleteNoteValidator validator)
+        //private readonly DeleteNoteValidator validator;
+        public DeleteNoteCommandHandler(INoteRepository noteRepository/*, DeleteNoteValidator validator*/)
         {
             this.noteRepository = noteRepository;
-            this.validator = validator;
+            //this.validator = validator;
         }
         public async Task<AppResponse> Handle(DeleteNoteCommandRequest request, CancellationToken cancellationToken)
         {
-            var validationResult = validator.Validate(request);
-            if (validationResult.Errors.Count > 0)
-                return new ErrorResponse(Messages.VALIDATION_ERROR);
+            //var validationResult = validator.Validate(request);
+            //if (validationResult.Errors.Count > 0)
+            //    return new ErrorResponse(Messages.VALIDATION_ERROR);
 
-            var result = await noteRepository.RemoveAsync(request.Id);
-            return result == null
-                ? new ErrorResponse(Messages.ERROR_OCCURRED)
-                : new SuccessResponse(Messages.DELETED_NOTE_PERMANENTLY);
+            noteRepository.Delete(request.Id);
+            return new SuccessResponse(Messages.DELETED_NOTE_PERMANENTLY);
         }
     }
 }

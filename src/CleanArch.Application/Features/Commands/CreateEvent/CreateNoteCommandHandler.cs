@@ -25,25 +25,23 @@ namespace CleanArch.Application.Features.Commands.CreateEvent
     {
         private readonly IMapper mapper;
         private readonly INoteRepository noteRepository;
-        private readonly CreateNoteValidator validator;
-        public CreateNoteCommandHandler(IMapper mapper, INoteRepository noteRepository, CreateNoteValidator validator)
+        //private readonly CreateNoteValidator validator;
+        public CreateNoteCommandHandler(IMapper mapper, INoteRepository noteRepository/*, CreateNoteValidator validator*/)
         {
             this.mapper = mapper;
             this.noteRepository = noteRepository;
-            this.validator = validator;
+            //this.validator = validator;
         }
 
         public async Task<AppResponse> Handle(CreateNoteCommandRequest request, CancellationToken cancellationToken)
         {
-            var validationResult = validator.Validate(request);
+            /*var validationResult = validator.Validate(request);
             if (validationResult.Errors.Count > 0)
-                return new ErrorResponse(Messages.VALIDATION_ERROR);
+                return new ErrorResponse(Messages.VALIDATION_ERROR);*/
 
             var note = mapper.Map<Domain.Entities.Note>(request);
-            var result = await noteRepository.AddAsync(note);
-            return result == null
-                ? new ErrorResponse(Messages.ERROR_OCCURRED)
-                : new SuccessResponse(Messages.CREATED_NOTE_SUCCESSFULLY);
+            noteRepository.Add(note);
+            return new SuccessResponse(Messages.CREATED_NOTE_SUCCESSFULLY);
         }
     }
 }

@@ -26,25 +26,23 @@ namespace CleanArch.Application.Features.Commands.CreateEvent
     {
         private readonly IMapper mapper;
         private readonly ITagRepository tagRepository;
-        private readonly CreateTagValidator validator;
-        public CreateTagCommandHandler(IMapper mapper, ITagRepository tagRepository, CreateTagValidator validator)
+        //private readonly CreateTagValidator validator;
+        public CreateTagCommandHandler(IMapper mapper, ITagRepository tagRepository/*, CreateTagValidator validator*/)
         {
             this.mapper = mapper;
             this.tagRepository = tagRepository;
-            this.validator = validator;
+            //this.validator = validator;
         }
 
         public async Task<AppResponse> Handle(CreateTagCommandRequest request, CancellationToken cancellationToken)
         {
-            var validationResult = validator.Validate(request);
-            if (validationResult.Errors.Count > 0)
-                return new ErrorResponse(Messages.VALIDATION_ERROR);
+            //var validationResult = validator.Validate(request);
+            //if (validationResult.Errors.Count > 0)
+            //    return new ErrorResponse(Messages.VALIDATION_ERROR);
 
             var tag = mapper.Map<Domain.Entities.Tag>(request);
-            var result = await tagRepository.AddAsync(tag);
-            return result == null
-                ? new ErrorResponse(Messages.ERROR_OCCURRED)
-                : new SuccessResponse(Messages.CREATED_TAG_SUCCESSFULLY);
+            tagRepository.Add(tag);
+            return new SuccessResponse(Messages.CREATED_TAG_SUCCESSFULLY);
         }
     }
 }

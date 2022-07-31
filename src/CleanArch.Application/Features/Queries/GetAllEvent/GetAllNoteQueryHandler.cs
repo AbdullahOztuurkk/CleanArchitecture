@@ -25,7 +25,7 @@ namespace CleanArch.Application.Features.Queries.GetAllEvent
         }
         public async Task<List<GetAllNoteQueryResponse>> Handle(GetAllNoteQueryRequest request, CancellationToken cancellationToken)
         {
-            var result = await noteRepository.GetAsync();
+            var result = noteRepository.GetAll();
             return mapper.Map<List<GetAllNoteQueryResponse>>(result);
         }
     }

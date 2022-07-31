@@ -26,7 +26,7 @@ namespace CleanArch.Application.Features.Commands.UpdateEvent
         private readonly INoteRepository noteRepository;
         //private readonly CreateNoteValidator validator;
 
-        public UpdateNoteCommandHandler(/*CreateNoteValidator validator,*/IMapper mapper, INoteRepository noteRepository)
+        public UpdateNoteCommandHandler(IMapper mapper, INoteRepository noteRepository/*, CreateNoteValidator validator,*/)
         {
             //this.validator = validator;
             this.noteRepository = noteRepository;
@@ -36,10 +36,8 @@ namespace CleanArch.Application.Features.Commands.UpdateEvent
         public async Task<AppResponse> Handle(UpdateNoteCommandRequest request, CancellationToken cancellationToken)
         {
             var entity = mapper.Map<Note>(request);
-            var result = await noteRepository.Update(entity);
-            return result == null
-                ? new ErrorResponse(Messages.ERROR_OCCURRED)
-                : new SuccessResponse(Messages.CREATED_TAG_SUCCESSFULLY);
+            noteRepository.Update(entity);
+            return new SuccessResponse(Messages.CREATED_TAG_SUCCESSFULLY);
         }
     }
 }

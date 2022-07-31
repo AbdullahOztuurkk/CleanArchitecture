@@ -9,7 +9,7 @@ namespace CleanArch.Application.Features.Queries.GetEvent
 {
     public class GetTagQueryRequest : IRequest<GetTagQueryResponse>
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
     }
 
     public class GetTagQueryResponse
@@ -30,7 +30,7 @@ namespace CleanArch.Application.Features.Queries.GetEvent
         }
         public async Task<GetTagQueryResponse> Handle(GetTagQueryRequest request, CancellationToken cancellationToken)
         {
-            var result = await tagRepository.GetByIdAsync(request.Id);
+            var result = tagRepository.Get(request.Id);
             return mapper.Map<GetTagQueryResponse>(result);
         }
     }
