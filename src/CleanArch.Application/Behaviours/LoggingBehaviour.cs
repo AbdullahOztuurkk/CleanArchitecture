@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using CleanArch.Domain.Common;
+using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace CleanArch.Application.Behaviours
     /// <typeparam name="TResponse">Response Object by TRequest</typeparam>
     public class LoggingBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
        where TRequest : IRequest<TResponse>
+       where TResponse : AppResponse, new()
     {
         private readonly ILogger<LoggingBehaviour<TRequest, TResponse>> _logger;
         public LoggingBehaviour(ILogger<LoggingBehaviour<TRequest, TResponse>> logger)

@@ -21,6 +21,8 @@ namespace CleanArch.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplicationServices();
+            services.AddPersistenceServices(Configuration);
 
             services.AddControllers();
             services.AddSwaggerDocument(config =>
@@ -36,9 +38,6 @@ namespace CleanArch.API
                     settings.Info.Version = "v1";
                 }
             ));
-
-            services.AddApplicationServices();
-            services.AddPersistenceServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

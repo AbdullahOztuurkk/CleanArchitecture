@@ -3,10 +3,48 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+
+
+//namespace CleanArch.Application.Behaviours
+//{
+//    public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
+//    {
+//        private readonly IEnumerable<IValidator<TRequest>> _validators;
+
+//        public ValidationBehaviour(IEnumerable<IValidator<TRequest>> validators)
+//        {
+//            _validators = validators;
+//        }
+
+//        public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
+//        {
+//            if (_validators.Any())
+//            {
+//                var context = new ValidationContext<TRequest>(request);
+
+//                var validationResults = await Task.WhenAll(
+//                    _validators.Select(v =>
+//                        v.ValidateAsync(context, cancellationToken)));
+
+//                var failures = validationResults
+//                    .Where(r => r.Errors.Any())
+//                    .SelectMany(r => r.Errors)
+//                    .ToList();
+
+//                if (failures.Any())
+//                    throw new ValidationException(failures);
+//            }
+//            return await next();
+//        }
+//    }
+
+//}
+
 
 namespace CleanArch.Application.Behaviours
 {
@@ -17,11 +55,11 @@ namespace CleanArch.Application.Behaviours
     /// <typeparam name="TResponse">AppResponse Object</typeparam>
     public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
         where TRequest : IRequest<TResponse>
-        where TResponse : AppResponse, new()
+        where TResponse : AppResponse
     {
-        private ILogger<ValidationBehaviour<TRequest,TResponse>> logger;
+        private ILogger<ValidationBehaviour<TRequest, TResponse>> logger;
         private readonly IValidator validator;
-        public ValidationBehaviour(ILogger<ValidationBehaviour<TRequest, TResponse>> logger)
+        public ValidationBehaviour()
         {
             validator = CreateInstance<TRequest>();
             this.logger = logger;
@@ -61,7 +99,7 @@ namespace CleanArch.Application.Behaviours
                 var result = await validator.ValidateAsync(context, cancellationToken);
                 if (result.Errors.Count > 0)
                 {
-                    logger.LogError($"Validation Error Message : { result.Errors.First().ErrorMessage }");
+                    logger.LogError($"Validation Error Message : {result.Errors.First().ErrorMessage}");
                     return (TResponse)await Task.FromResult<AppResponse>(new ErrorResponse(result.Errors.First().ErrorMessage));
                 }
             }

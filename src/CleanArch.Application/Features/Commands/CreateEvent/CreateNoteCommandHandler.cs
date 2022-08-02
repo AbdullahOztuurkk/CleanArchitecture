@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using CleanArch.Application.Interfaces.Repositories;
-using CleanArch.Application.Interfaces.UnitOfWork;
 using CleanArch.Application.Validations.Note;
 using CleanArch.Domain.Common;
 using CleanArch.Domain.Constants;
