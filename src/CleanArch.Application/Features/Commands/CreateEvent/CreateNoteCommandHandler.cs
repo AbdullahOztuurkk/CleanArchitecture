@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using CleanArch.Application.Interfaces.Repositories;
-using CleanArch.Application.Validations.Note;
 using CleanArch.Domain.Common;
 using CleanArch.Domain.Constants;
 using MediatR;
@@ -24,20 +23,14 @@ namespace CleanArch.Application.Features.Commands.CreateEvent
     {
         private readonly IMapper mapper;
         private readonly INoteRepository noteRepository;
-        //private readonly CreateNoteValidator validator;
-        public CreateNoteCommandHandler(IMapper mapper, INoteRepository noteRepository/*, CreateNoteValidator validator*/)
+        public CreateNoteCommandHandler(IMapper mapper, INoteRepository noteRepository)
         {
             this.mapper = mapper;
             this.noteRepository = noteRepository;
-            //this.validator = validator;
         }
 
         public async Task<AppResponse> Handle(CreateNoteCommandRequest request, CancellationToken cancellationToken)
         {
-            /*var validationResult = validator.Validate(request);
-            if (validationResult.Errors.Count > 0)
-                return new ErrorResponse(Messages.VALIDATION_ERROR);*/
-
             var note = mapper.Map<Domain.Entities.Note>(request);
             noteRepository.Add(note);
             return new SuccessResponse(ResultMessages.CREATED_NOTE_SUCCESSFULLY);

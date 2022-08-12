@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using CleanArch.Application.Interfaces.Repositories;
-using CleanArch.Application.Validations.Tag;
 using CleanArch.Domain.Common;
 using CleanArch.Domain.Constants;
 using MediatR;
@@ -22,19 +21,13 @@ namespace CleanArch.Application.Features.Commands.DeleteEvent
     public class DeleteTagCommandHandler : IRequestHandler<DeleteTagCommandRequest, AppResponse>
     {
         private readonly ITagRepository tagRepository;
-        //private readonly DeleteTagValidator validator;
-        public DeleteTagCommandHandler(ITagRepository tagRepository/*, DeleteTagValidator validator*/)
+        public DeleteTagCommandHandler(ITagRepository tagRepository)
         {
             this.tagRepository = tagRepository;
-            //this.validator = validator;
         }
 
         public async Task<AppResponse> Handle(DeleteTagCommandRequest request, CancellationToken cancellationToken)
         {
-            //var validationResult = validator.Validate(request);
-            //if (validationResult.Errors.Count > 0)
-            //    return new ErrorResponse(Messages.VALIDATION_ERROR);
-
             tagRepository.Delete(request.Id);
             return new SuccessResponse(ResultMessages.DELETED_NOTE_PERMANENTLY);
         }

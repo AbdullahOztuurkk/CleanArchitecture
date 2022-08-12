@@ -1,5 +1,4 @@
 ﻿using CleanArch.Application.Interfaces.Repositories;
-using CleanArch.Application.Validations.Note;
 using CleanArch.Domain.Common;
 using CleanArch.Domain.Constants;
 using MediatR;
@@ -21,18 +20,12 @@ namespace CleanArch.Application.Features.Commands.DeleteEvent
     public class DeleteNoteCommandHandler : IRequestHandler<DeleteNoteCommandRequest, AppResponse>
     {
         private readonly INoteRepository noteRepository;
-        //private readonly DeleteNoteValidator validator;
-        public DeleteNoteCommandHandler(INoteRepository noteRepository/*, DeleteNoteValidator validator*/)
+        public DeleteNoteCommandHandler(INoteRepository noteRepository)
         {
             this.noteRepository = noteRepository;
-            //this.validator = validator;
         }
         public async Task<AppResponse> Handle(DeleteNoteCommandRequest request, CancellationToken cancellationToken)
         {
-            //var validationResult = validator.Validate(request);
-            //if (validationResult.Errors.Count > 0)
-            //    return new ErrorResponse(Messages.VALIDATION_ERROR);
-
             noteRepository.Delete(request.Id);
             return new SuccessResponse(ResultMessages.DELETED_NOTE_PERMANENTLY);
         }

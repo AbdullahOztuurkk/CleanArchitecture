@@ -14,6 +14,7 @@ namespace CleanArch.Application.Features.Commands.UpdateEvent
 {
     public class UpdateTagCommandRequest : IRequest<AppResponse>
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
 
@@ -27,21 +28,15 @@ namespace CleanArch.Application.Features.Commands.UpdateEvent
     {
         private readonly ITagRepository tagRepository;
         private readonly IMapper mapper;
-        //private readonly CreateTagValidator validator;
-        public UpdateTagCommandHandler(IMapper mapper, ITagRepository tagRepository/*, CreateTagValidator validator*/)
+        public UpdateTagCommandHandler(IMapper mapper, ITagRepository tagRepository)
         {
             this.mapper = mapper;
             this.tagRepository = tagRepository;
-            //this.validator = validator;
         }
 
         public async Task<AppResponse> Handle(UpdateTagCommandRequest request, CancellationToken cancellationToken)
         {
-            /*
-            var validationResult = validator.Validate(request);
-            if (validationResult.Errors.Count > 0)
-                return new ErrorResponse(Messages.VALIDATION_ERROR);
-            */
+
             var tag = mapper.Map<Domain.Entities.Tag>(request);
             tagRepository.Update(tag);
             return new SuccessResponse(ResultMessages.CREATED_TAG_SUCCESSFULLY);

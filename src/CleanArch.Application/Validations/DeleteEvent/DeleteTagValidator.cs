@@ -1,7 +1,7 @@
 ﻿using CleanArch.Application.Features.Commands.DeleteEvent;
 using FluentValidation;
 
-namespace CleanArch.Application.Validations.Tag
+namespace CleanArch.Application.Validations.DeleteEvent
 {
     public class DeleteTagValidator:AbstractValidator<DeleteTagCommandRequest>
     {
