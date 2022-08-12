@@ -36,7 +36,7 @@ namespace CleanArch.Application.Features.Commands.DeleteEvent
             //    return new ErrorResponse(Messages.VALIDATION_ERROR);
 
             tagRepository.Delete(request.Id);
-            return new SuccessResponse(Messages.DELETED_NOTE_PERMANENTLY);
+            return new SuccessResponse(ResultMessages.DELETED_NOTE_PERMANENTLY);
         }
     }
 }

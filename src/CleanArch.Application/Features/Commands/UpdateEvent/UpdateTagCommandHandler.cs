@@ -44,7 +44,7 @@ namespace CleanArch.Application.Features.Commands.UpdateEvent
             */
             var tag = mapper.Map<Domain.Entities.Tag>(request);
             tagRepository.Update(tag);
-            return new SuccessResponse(Messages.CREATED_TAG_SUCCESSFULLY);
+            return new SuccessResponse(ResultMessages.CREATED_TAG_SUCCESSFULLY);
         }
     }
 }

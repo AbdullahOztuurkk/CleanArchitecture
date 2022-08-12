@@ -40,7 +40,7 @@ namespace CleanArch.Application.Features.Commands.CreateEvent
 
             var note = mapper.Map<Domain.Entities.Note>(request);
             noteRepository.Add(note);
-            return new SuccessResponse(Messages.CREATED_NOTE_SUCCESSFULLY);
+            return new SuccessResponse(ResultMessages.CREATED_NOTE_SUCCESSFULLY);
         }
     }
 }
