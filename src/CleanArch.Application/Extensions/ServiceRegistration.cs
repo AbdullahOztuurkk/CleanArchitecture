@@ -1,4 +1,5 @@
 ﻿using CleanArch.Application.Behaviours;
+using CleanArch.Application.Mapping;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +11,7 @@ namespace CleanArch.Application.Extensions
     {
         public static void AddApplicationServices(this IServiceCollection services)
         {
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(typeof(GeneralProfile));
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
