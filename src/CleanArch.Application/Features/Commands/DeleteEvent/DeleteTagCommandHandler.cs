@@ -12,11 +12,6 @@ namespace CleanArch.Application.Features.Commands.DeleteEvent
     public class DeleteTagCommandRequest : IRequest<AppResponse>
     {
         public int Id { get; set; }
-
-        public DeleteTagCommandRequest(int id)
-        {
-            Id = id;
-        }
     }
     public class DeleteTagCommandHandler : IRequestHandler<DeleteTagCommandRequest, AppResponse>
     {

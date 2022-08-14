@@ -11,11 +11,6 @@ namespace CleanArch.Application.Features.Commands.DeleteEvent
     public class DeleteNoteCommandRequest : IRequest<AppResponse>
     {
         public int Id { get; set; }
-
-        public DeleteNoteCommandRequest(int id)
-        {
-            Id = id;
-        }
     }
     public class DeleteNoteCommandHandler : IRequestHandler<DeleteNoteCommandRequest, AppResponse>
     {
