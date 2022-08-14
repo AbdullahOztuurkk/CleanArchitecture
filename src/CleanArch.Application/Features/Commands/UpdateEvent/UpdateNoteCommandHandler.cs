@@ -33,7 +33,7 @@ namespace CleanArch.Application.Features.Commands.UpdateEvent
         {
             var entity = mapper.Map<Note>(request);
             noteRepository.Update(entity);
-            return new SuccessResponse(ResultMessages.CREATED_TAG_SUCCESSFULLY);
+            return new SuccessResponse(ResultMessages.CREATED_NOTE_SUCCESSFULLY);
         }
     }
 }
