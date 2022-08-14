@@ -12,17 +12,17 @@ namespace CleanArch.Application.Validations.UpdateEvent
                 .MinimumLength(1)
                 .MaximumLength(20)
                 .NotEmpty()
-                .WithMessage(ValidationMessages.Tag_Description_Length_Error);
+                .Configure(rule => rule.MessageBuilder = _ => ValidationMessages.Tag_Description_Length_Error);
 
             RuleFor(pred => pred.Name)
                 .MinimumLength(1)
                 .MaximumLength(50)
                 .NotEmpty()
-                .WithMessage(ValidationMessages.Tag_Name_Length_Error);
+                .Configure(rule => rule.MessageBuilder = _ => ValidationMessages.Tag_Name_Length_Error);
 
             RuleFor(pred => pred.Id)
                .NotEmpty()
-               .WithMessage(ValidationMessages.Entity_Required_Id_Error);
+               .Configure(rule => rule.MessageBuilder = _ => ValidationMessages.Entity_Required_Id_Error);
         }
     }
 }

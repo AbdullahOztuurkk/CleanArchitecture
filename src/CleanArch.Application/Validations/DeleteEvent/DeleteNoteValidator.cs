@@ -10,7 +10,7 @@ namespace CleanArch.Application.Validations.DeleteEvent
         {
             RuleFor(pred => pred.Id)
                 .NotEmpty()
-                .WithMessage(ValidationMessages.Entity_Required_Id_Error);
+                .Configure(rule => rule.MessageBuilder = _ => ValidationMessages.Entity_Required_Id_Error);
         }
     }
 }
