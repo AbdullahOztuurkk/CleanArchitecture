@@ -18,11 +18,6 @@ namespace CleanArch.Application.Features.Commands.UpdateEvent
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public UpdateTagCommandRequest(string name, string description)
-        {
-            Name = name;
-            Description = description;
-        }
     }
     public class UpdateTagCommandHandler : IRequestHandler<UpdateTagCommandRequest, AppResponse>
     {
