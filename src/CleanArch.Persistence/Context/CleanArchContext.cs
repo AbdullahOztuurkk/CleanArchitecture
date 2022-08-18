@@ -2,6 +2,7 @@
 using CleanArch.Domain.Entities;
 using CleanArch.Persistence.Context.Configurations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,29 @@ namespace CleanArch.Persistence.Context
 {
     public class CleanArchContext : DbContext, IApplicationDbContext
     {
+        public IConfiguration configuration
+        {
+            get
+            {
+                var configurationBuilder = new ConfigurationBuilder();
+                configurationBuilder.AddJsonFile("appsettings.json");
+                return configurationBuilder.Build();
+            }
+        }
+
         public CleanArchContext(DbContextOptions<CleanArchContext> options) : base(options) { }
         public CleanArchContext() { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration<Note>(new NoteConfiguration());
-            modelBuilder.ApplyConfiguration<Tag>(new TagConfiguration());
+            modelBuilder.ApplyConfiguration(new NoteConfiguration());
+            modelBuilder.ApplyConfiguration(new TagConfiguration());
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("CleanArchContext"));
 
+        }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Note> Notes { get; set; }
     }
