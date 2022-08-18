@@ -21,15 +21,5 @@ namespace CleanArch.Domain.Entities
             Content = content;
             IsStarred = isStarred;
         }
-
-        public Note(string title, string content) : this(title, content, false)
-        {
-
-        }
-
-        public Note(string content):this("Note",content,false)
-        {
-
-        }
     }
 }

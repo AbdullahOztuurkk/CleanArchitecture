@@ -13,16 +13,5 @@ namespace CleanArch.Domain.Entities
 
         //Relationship
         public ICollection<Note> Notes { get; set; }
-
-        public Tag(string name, string description)
-        {
-            Name = name;
-            Description = description;
-        }
-
-        public Tag(string name) : this(name, null)
-        {
-            Name = name;
-        }
     }
 }
