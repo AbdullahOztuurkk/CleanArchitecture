@@ -64,7 +64,7 @@ namespace CleanArch.API.Controllers
         /// <returns></returns>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [HttpDelete("{Id}")]
+        [HttpDelete(":Id")]
         public async Task<IActionResult> Delete([FromQuery] DeleteNoteCommandRequest request)
         {
             var result = await mediator.Send(request);
