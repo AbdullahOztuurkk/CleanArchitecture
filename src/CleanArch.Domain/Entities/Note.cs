@@ -14,12 +14,5 @@ namespace CleanArch.Domain.Entities
 
         //Relationship
         public Tag Tag { get; set; }
-
-        public Note(string title, string content, bool isStarred)
-        {
-            Title = title;
-            Content = content;
-            IsStarred = isStarred;
-        }
     }
 }
