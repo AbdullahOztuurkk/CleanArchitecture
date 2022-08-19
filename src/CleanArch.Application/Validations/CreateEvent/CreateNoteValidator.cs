@@ -16,7 +16,7 @@ namespace CleanArch.Application.Validations.DeleteEvent
 
             RuleFor(pred => pred.Title)
                 .MinimumLength(1)
-                .MinimumLength(25)
+                .MaximumLength(25)
                 .NotEmpty()
                 .Configure(rule => rule.MessageBuilder = _ => ValidationMessages.Note_Title_Length_Error);
         }
