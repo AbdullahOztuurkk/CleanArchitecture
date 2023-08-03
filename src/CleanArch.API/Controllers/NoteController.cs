@@ -13,7 +13,7 @@ namespace CleanArch.API.Controllers
     [Route("api/notes")]
     public class NoteController : ControllerBase
     {
-        public readonly IMediator mediator;
+        private readonly IMediator mediator;
         public NoteController(IMediator mediator)
         {
             this.mediator = mediator;
