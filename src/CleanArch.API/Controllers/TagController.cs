@@ -13,7 +13,7 @@ namespace CleanArch.API.Controllers
     [ApiController]
     public class TagController : ControllerBase
     {
-        public readonly IMediator mediator;
+        private readonly IMediator mediator;
 
         public TagController(IMediator mediator)
         {
